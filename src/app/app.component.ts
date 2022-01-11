@@ -88,23 +88,9 @@ export class AppComponent implements OnInit{
     } else if(grade<2.5){
       color="red";
     }
-    //odstotek kroga, ki ga moramo narisati
+    //background-image=conic-gradient(barva 0% percent%, prazno 0% 100%) : tortni diagram s percent% barve
     let percent=Math.round(grade*10);
-    /*če >=50%, zapolnimo desno polovico (270° 50% 50%), nato zapolnimo levo polovico
-     *zamik leve je ((ostanek %/50%)*180°)
-     *sicer naredimo zrcaljeno
-     */
-    if(percent>50){
-      backgroundstring+="linear-gradient(270deg, "+color+" 50%, transparent 50%), ";
-      percent-=50;
-      const angle=Math.round(270+percent/50*180);
-      backgroundstring+="linear-gradient("+angle+"deg, "+color+" 50%, "+emptycolor+" 50%)";
-    } else{
-      backgroundstring+="linear-gradient(90deg, "+emptycolor+" 50%, transparent 50%), ";
-      const angle=Math.round(90+percent/50*180);
-      backgroundstring+="linear-gradient("+angle+"deg, "+color+" 50%, "+emptycolor+" 50%)";
-    }
-    console.log(grade+": "+backgroundstring);
+    backgroundstring+="conic-gradient("+color+" 0% "+percent+"%, "+emptycolor+" 0% 100%)";
     return {background: backgroundstring};
   }
 
