@@ -19,6 +19,31 @@
           </div>
         </div>
       </div>
+      <div>
+        <div class="films">
+          <section class="films_grid_section">
+            <div class="films_grid">
+              <div class="film_card" *ngFor="let film of films">
+                <div class="film_content">
+                  <div class="score_container">
+                    <div class="score_ring" [ngStyle]="styleCircleForGrade(film.vote_average)">
+                      <div class="score_circle">
+                        <div class="score_percent">
+                        <span class="icon">{{film.vote_average*10+"%"}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h2 class="film_title">
+                    <a class="film_link" target="_blank" rel="noopener noreferrer" [href]="baseFilmUrl+film.id.toString()" [title]="film.title">{{film.title}}</a>
+                  </h2>
+                  <p class="film_date">{{transformDate(film.release_date)}}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
   </div>
 </div>
