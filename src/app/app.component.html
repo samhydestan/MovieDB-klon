@@ -12,7 +12,7 @@
           <div class="filter_genre">
             <h3>Žanri</h3>
             <ul class="genres_list">
-              <li class="genre" *ngFor="let genre of genres">
+              <li class="genre" [id]="'genre'+genre.id" *ngFor="let genre of genres">
                 <a (click)="onGenreClick(genre)" >{{genre.name}}</a>
               </li>
             </ul>
