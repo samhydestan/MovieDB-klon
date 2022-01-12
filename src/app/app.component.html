@@ -49,7 +49,7 @@
               </div>
             </div>
           </section>
-          <mat-paginator class="paginator" [hidePageSize]="true" [pageIndex]="pageIndex" [showFirstLastButtons]="true" [pageSize]="20" [length]="length"></mat-paginator>
+          <mat-paginator class="paginator" [hidePageSize]="true" [pageIndex]="pageIndex" [showFirstLastButtons]="true" pageSize="20" [length]="length" (page)="onPageChange($event)"></mat-paginator>
         </div>
       </div>
     </div>

@@ -17,6 +17,8 @@ export class AppComponent implements OnInit{
   genres:Genre[]=[];
   //seznam filmov
   films:Film[]=[];
+  //shramba filmov, po katerih smo že poizvedli
+  filmArchive:Map<number,Film[]>=new Map();
   //seznam aktivnih filtrov po žanrih
   private activeGenreFilters:number[]=[];
 
@@ -29,7 +31,6 @@ export class AppComponent implements OnInit{
 
   //lastnosti ostranjevalca
   pageIndex:number=0;
-  pageSize:number=20;
   length:number=0;
 
   //format za zapis datumov
@@ -47,23 +48,33 @@ export class AppComponent implements OnInit{
     this.mdbservice.getGenres().subscribe((genredata:any)=>{
         this.genres=genredata.genres;
     });
-    this.getFilms(false);
+    this.getFilms(true);
   }
 
   //asinhrona poizvedba po filmih s trenutnimi filtri žanra
-  private getFilms(getMore:boolean): void{
-    this.mdbservice.getFilms(this.activeGenreFilters).subscribe((data:any)=>{
-      if(getMore){
+  private getFilms(newFilter:boolean): void{
+    if(newFilter){
+      this.filmArchive.clear();
+      this.mdbservice.getFilms(this.activeGenreFilters,0).subscribe((data:any)=>{
+        this.handleFilmData(data);
+        this.length=data.total_results;
+      });
+    }
+    else {
+      this.mdbservice.getFilms(this.activeGenreFilters,this.pageIndex).subscribe((data:any)=>{
+        this.handleFilmData(data);
+      });
+    }
+  }
 
-      } else{
-        this.films=data.results;
-        this.length=this.films.length;
-      }
-    });
+  private handleFilmData(data:any): void{
+    this.films=data.results;
+    this.pageIndex=data.page-1;
+    this.filmArchive.set(this.pageIndex,this.films);
   }
 
   //ob kliku na žanr se ga doda ali odstrani iz seznama filtrov, posodobi slog li značke, znova poizve po filmih
-  public onGenreClick(genre:Genre): void{
+  onGenreClick(genre:Genre): void{
     const index:number=this.activeGenreFilters.indexOf(genre.id);
     const genreListItem:HTMLElement|null=document.getElementById("genre"+genre.id);
     if(index===-1){
@@ -79,17 +90,30 @@ export class AppComponent implements OnInit{
         genreListItem.style.color="black";
       }
     }
-    this.getFilms(false);
+    this.getFilms(true);
+  }
+
+  //ob kliku puščic ostranjevalca ustrezno spremenimo prikazane filme, po potrebi poizvemo po novih
+  onPageChange(pageEvent:PageEvent){
+    const archiveEntry:Film[]|undefined=this.filmArchive.get(pageEvent.pageIndex);
+    this.pageIndex=pageEvent.pageIndex;
+    //če imamo stran shranjeno, ni potrebna poizvedba
+    if(archiveEntry!==undefined){
+      this.films=archiveEntry;
+    }
+    else{
+      this.getFilms(false);
+    }
   }
 
   //pretvori zapis datuma v slovenskega
-  public transformDate(date:string):string{
+  transformDate(date:string):string{
     const dateobject=new Date(date);
     return this.dateFormat.format(dateobject);
   }
 
   //določi slog kroga za vsako oceno
-  public styleRingForGrade(grade:number):string{
+  styleRingForGrade(grade:number):string{
     let color:string="green";
     if(grade<7&&grade>=5){
       color="yellow";

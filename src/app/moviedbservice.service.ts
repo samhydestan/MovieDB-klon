@@ -16,22 +16,23 @@ export class Moviedbservice {
   private region:string="SI";
   constructor(private httpClient: HttpClient) { }
 
-  //naredi get request na api za vse žanre filmov v slovenščini, vrne observable s tabelo žanrov
+  //naredi get request na api za vse žanre filmov v slovenščini, vrne Observable s tabelo žanrov
   public getGenres():Observable<any>{
     const url:string=this.baseUrl+"/genre/movie/list?api_key="+this.apikey+
       "&language="+this.language;
     return this.httpClient.get<any>(url);
   }
 
-  //naredi get request na api za vse žanre filmov v slovenščini s filtri žanrov, vrne observable s tabelo filmov
-  public getFilms(genreFilters:number[]):Observable<any>{
+  //naredi get request na api za vse žanre filmov v slovenščini s filtri žanrov, vrne Observable s tabelo filmov
+  public getFilms(genreFilters:number[],pageIndex:number):Observable<any>{
     //genreFilters seznam id-jev žanrov, sestavimo queryParam string
     const genreFiltersQueryParam = genreFilters.length ? "&with_genres="+genreFilters.toString() : "" ;
+    //pageIndex je 0 indexed v aplikaciji, 1 indexed v API-ju!!!
     const url:string=this.baseUrl+"/discover/movie?api_key="+this.apikey+
       "&language="+this.language+
       "&region="+this.region+
-      genreFiltersQueryParam;
-    console.log(url);
+      genreFiltersQueryParam+
+      "&page="+(pageIndex+1);
     return this.httpClient.get<any>(url);
   }
 }
