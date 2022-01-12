@@ -283,3 +283,17 @@ span.icon{
   position: relative;
   margin: 20px auto;
 }
+
+header{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  top: 0;
+  left: 0;
+  background-color: rgba(3,37,65, 1);
+  height: 12%;
+  width: 100%;
+  padding-left: 5%;
+  transition: top 0.2s ease-in-out;
+}

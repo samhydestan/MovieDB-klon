@@ -67,6 +67,7 @@ export class AppComponent implements OnInit{
     }
   }
 
+  //shrani podatke o filmih iz poizvedbe
   private handleFilmData(data:any): void{
     this.films=data.results;
     this.pageIndex=data.page-1;
