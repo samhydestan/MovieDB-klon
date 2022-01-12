@@ -17,7 +17,9 @@ export class AppComponent implements OnInit{
   //seznam aktivnih filtrov po žanrih
   private activeGenreFilters:number[]=[];
   //baseUrl za slike posterjev filmov
-  baseImgUrl:string="https://image.tmdb.org/t/p/w154/";
+  baseImgUrlDefault:string="https://image.tmdb.org/t/p/w220_and_h330_face";
+  //alternativni baseUrl za slike posterjev filmov
+  baseImgUrlAlt:string="https://image.tmdb.org/t/p/w440_and_h660_face";
   //baseUrl strani filmov
   baseFilmUrl:string="https://www.themoviedb.org/movie/";
   //format za zapis datumov
@@ -77,10 +79,8 @@ export class AppComponent implements OnInit{
   }
 
   //določi slog kroga za vsako oceno
-  public styleCircleForGrade(grade:number){
+  public styleRingForGrade(grade:number):string{
     let color:string="green";
-    const emptycolor:string="#081c22";
-    let backgroundstring="";
     if(grade<7&&grade>=5){
       color="yellow";
     } else if(grade<5&&grade>=2.5){
@@ -88,11 +88,7 @@ export class AppComponent implements OnInit{
     } else if(grade<2.5){
       color="red";
     }
-    //background-image=conic-gradient(barva 0% percent%, prazno 0% 100%) : tortni diagram s percent% barve
-    let percent=Math.round(grade*10);
-    backgroundstring+="conic-gradient("+color+" 0% "+percent+"%, "+emptycolor+" 0% 100%)";
-    return {background: backgroundstring};
+    //background-image=conic-gradient(barva 0% ocena%, prazno 0% 100%) : tortni diagram z ocena% barve
+    return "conic-gradient("+color+" 0% "+Math.round(grade*10)+"%, #081c22 0% 100%)";
   }
-
-
 }

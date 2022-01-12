@@ -25,17 +25,24 @@
             <div class="films_grid">
               <div class="film_card" *ngFor="let film of films">
                 <div class="film_content">
-                  <div class="score_container">
-                    <div class="score_ring" [ngStyle]="styleCircleForGrade(film.vote_average)">
-                      <div class="score_circle">
-                        <div class="score_percent">
+                  <div class="image_container">
+                    <div class="image_wrapper">
+                      <a class="image" [href]="baseFilmUrl+film.id" [title]="film.title" target="_blank" rel="noopener noreferrer">
+                        <img loading="lazy" class="poster" [src]="baseImgUrlDefault+film.poster_path" [srcset]="baseImgUrlDefault+film.poster_path+' 1x, '+baseImgUrlAlt+film.poster_path+' 2x'" [alt]="film.title">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="grade_container">
+                    <div class="grade_ring" [style.background-image]="styleRingForGrade(film.vote_average)">
+                      <div class="grade_circle">
+                        <div class="grade_percent">
                         <span class="icon">{{film.vote_average*10+"%"}}</span>
                         </div>
                       </div>
                     </div>
                   </div>
                   <h2 class="film_title">
-                    <a class="film_link" target="_blank" rel="noopener noreferrer" [href]="baseFilmUrl+film.id.toString()" [title]="film.title">{{film.title}}</a>
+                    <a class="film_link" target="_blank" rel="noopener noreferrer" [href]="baseFilmUrl+film.id" [title]="film.title">{{film.title}}</a>
                   </h2>
                   <p class="film_date">{{transformDate(film.release_date)}}</p>
                 </div>

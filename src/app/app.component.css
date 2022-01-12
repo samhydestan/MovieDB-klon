@@ -159,7 +159,7 @@ h2{
 
 .film_content{
   width: 100%;
-  padding: 26px 10px 12px 10px;
+  padding: 10px 10px 10px 10px;
   position: relative;
   white-space: normal;
   display: flex;
@@ -182,6 +182,10 @@ h2{
   text-decoration: none;
 }
 
+.film_link:hover{
+  color: deepskyblue;
+}
+
 .film_date{
   font-size: 1em;
   margin: 0;
@@ -189,10 +193,10 @@ h2{
   color: rgba(0,0,0,0.6);
 }
 
-.score_container{
-  position: absolute;
+.grade_container{
+  position: relative;
   top: -19px;
-  left: 10px;
+  left: 5px;
   width: 38px;
   height: 38px;
   box-sizing: border-box;
@@ -201,8 +205,7 @@ h2{
   transform: scale(1);
 }
 
-.score_ring{
-  margin: 0 auto;
+.grade_ring{
   text-align:center;
   width: 38px;
   height: 38px;
@@ -212,7 +215,7 @@ h2{
   border-radius: 50%;
 }
 
-.score_circle{
+.grade_circle{
   border-radius:50%;
   width: 30px;
   height: 30px;
@@ -222,7 +225,7 @@ h2{
   display: flex;
 }
 
-.score_percent{
+.grade_percent{
   width: 100%;
   height: 100%;
   z-index: 2;
@@ -242,4 +245,34 @@ span.icon{
   font-variant: normal;
   text-transform: none;
   line-height: 1;
+}
+
+.image_container{
+  width: 100%;
+  height: calc((100vw - 80px - 260px - (30px * 5)) / 5 * 1.5);
+  max-height: calc((1400px - 80px - 260px - (30px * 5)) / 5 * 1.5);
+}
+
+.image_wrapper{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.image{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+.poster{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: 0;
 }
