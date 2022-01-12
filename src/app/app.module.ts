@@ -1,8 +1,7 @@
 import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from "@angular/common/http";
-import {FilmsPaginator} from "./films-paginator";
-import { MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
+import { MatPaginatorModule} from '@angular/material/paginator';
 import { AppComponent } from './app.component';
 
 
@@ -15,10 +14,7 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     MatPaginatorModule
   ],
-  providers: [{
-    provide: MatPaginatorIntl,
-    useClass: FilmsPaginator
-  }],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

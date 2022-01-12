@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {PageEvent} from '@angular/material/paginator';
 import {Genre} from './genre';
 import {Moviedbservice} from './moviedbservice.service';
 import {Film} from "./film";
@@ -8,20 +9,29 @@ import {Film} from "./film";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+
   //naslov zavihka
   title:string = 'MovieDB';
+
   //seznam žanrov
   genres:Genre[]=[];
   //seznam filmov
   films:Film[]=[];
   //seznam aktivnih filtrov po žanrih
   private activeGenreFilters:number[]=[];
+
   //baseUrl za slike posterjev filmov
   baseImgUrlDefault:string="https://image.tmdb.org/t/p/w220_and_h330_face";
   //alternativni baseUrl za slike posterjev filmov
   baseImgUrlAlt:string="https://image.tmdb.org/t/p/w440_and_h660_face";
   //baseUrl strani filmov
   baseFilmUrl:string="https://www.themoviedb.org/movie/";
+
+  //lastnosti ostranjevalca
+  pageIndex:number=0;
+  pageSize:number=20;
+  length:number=0;
+
   //format za zapis datumov
   private dateFormat:Intl.DateTimeFormat=new Intl.DateTimeFormat("sl-SI",{
     year: 'numeric',
@@ -47,7 +57,7 @@ export class AppComponent implements OnInit{
 
       } else{
         this.films=data.results;
-        this.films.forEach((i)=>console.log(i.title));
+        this.length=this.films.length;
       }
     });
   }

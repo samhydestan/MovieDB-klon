@@ -276,3 +276,10 @@ span.icon{
   outline: none;
   border: 0;
 }
+
+.paginator{
+  background-color: deepskyblue;
+  color: white;
+  position: relative;
+  margin: 20px auto;
+}
